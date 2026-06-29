@@ -1,9 +1,8 @@
-const userModel = require("../models/user.model")
-const bcrypt = require("bcryptjs")
-const jwt = require("jsonwebtoken")
-const tokenBlacklistModel = require("../models/blacklist.model")
-const crypto = require('crypto');
-const { error } = require("console");
+import userModel from '../models/user.model.js'
+import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
+import tokenBlacklistModel from '../models/blacklist.model.js'
+import crypto from 'crypto'
 
 /**
  * @name TokenIssueHelper
@@ -65,9 +64,10 @@ async function registerUserController(req,res) {
     }
 
     const hash = await bcrypt.hash(password,10) //10 is cost factor or salt rounds here.
+    let user;
 
     try{
-        const user = await userModel.create({
+        user = await userModel.create({
             username,
             email,
             password:hash
@@ -81,20 +81,11 @@ async function registerUserController(req,res) {
         )
     }
 
-    issueToken(user);
+    const token = issueToken(user)
     setAuthCookie(res, token)
 
-    const isProduction = process.env.NODE_ENV === 'production'
-    res.cookie("token", token_username, {
-        httpOnly: true,
-        secure: isProduction,
-        sameSite: isProduction ? 'none' : 'lax',
-        path: '/',
-        maxAge: 86400000
-    })
-
     res.status(201).json({
-        message:"User logged in successfully",
+        message:"User registered successfully",
         user:{
             id:user._id,
             username:user.username,
@@ -109,7 +100,7 @@ async function registerUserController(req,res) {
  * @access Public
  */
 
-async function loginUserController(req,res){
+async function loginUserController(req,res) {
     const {email,password} = req.body;
 
     const user = await userModel.findOne({email})
@@ -125,24 +116,15 @@ async function loginUserController(req,res){
         })
     }
 
-    issueToken(user);
+    const token = issueToken(user)
     setAuthCookie(res, token);
 
-    const isProduction = process.env.NODE_ENV === 'production'
-    res.cookie("token", token_Passwd, {
-        httpOnly: true,
-        secure: isProduction,
-        sameSite: isProduction ? 'none' : 'lax',
-        path: '/',
-        maxAge: 86400000
-    });
     res.status(200).json({
-        message:"User logged in Successfully",
+        message:"User logged in successfully",
         user:{
             id:user._id,
             username:user.username,
             email:user.email
-            
         }
     })
 }
@@ -210,7 +192,7 @@ async function getMeController(req,res){
     })
 }
 
-module.exports = {
+export default {
     registerUserController,
     loginUserController,
     logoutUserController,

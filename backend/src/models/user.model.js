@@ -1,5 +1,5 @@
-const mongoose = require("mongoose")
-const validator = require("validator")
+import mongoose from 'mongoose'
+import validator from 'validator'
 
 const UsernamePattern = /^[a-zA-Z][a-zA-Z0-9_]{2,15}$/;
 
@@ -37,4 +37,4 @@ const userSchema = new mongoose.Schema({
 })
 
 const userModel = mongoose.model("users",userSchema);
-module.exports = userModel 
+export default userModel; 

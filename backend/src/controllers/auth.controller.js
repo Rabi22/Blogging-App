@@ -9,7 +9,7 @@ import crypto from 'crypto'
  */
 function issueToken(user) {
   return jwt.sign(
-    { id: user._id, username: user.username },
+    { id: user._id, username: user.username, role: user.role || 'user' },
     process.env.JWT_SECRET,
     { expiresIn: "1d" }
   );
@@ -38,7 +38,9 @@ function setAuthCookie(res, token) {
  */
 
 async function registerUserController(req,res) {
-    const {username,email,password} = req.body
+    const {username,email,password,role} = req.body
+    const bootstrapToken = req.headers?.['x-admin-bootstrap-token'] || req.headers?.['X-Admin-Bootstrap-Token'];
+    const isAdminBootstrap = bootstrapToken && bootstrapToken === process.env.ADMIN_BOOTSTRAP_TOKEN;
 
     if(!username || !email || !password){
         return res.status(400).json({
@@ -70,7 +72,8 @@ async function registerUserController(req,res) {
         user = await userModel.create({
             username,
             email,
-            password:hash
+            password:hash,
+            role: isAdminBootstrap ? 'admin' : 'user'
         })
     }catch(err){
         return res.status(500).json(
@@ -89,7 +92,8 @@ async function registerUserController(req,res) {
         user:{
             id:user._id,
             username:user.username,
-            email:user.email
+            email:user.email,
+            role:user.role || 'user'
         }
     })
 }
@@ -124,7 +128,8 @@ async function loginUserController(req,res) {
         user:{
             id:user._id,
             username:user.username,
-            email:user.email
+            email:user.email,
+            role:user.role || 'user'
         }
     })
 }

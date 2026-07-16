@@ -9,6 +9,8 @@ import * as Sentry from "@sentry/node";
 import { getLogs } from "../src/config/logStore.config.js"
 import blogRouter from "./routes/blog.route.js";
 import adminRoute from "./routes/admin.route.js";
+import authUser from "./middleware/userAuth.middleware.js";
+import adminOnly from "./middleware/adminOnly.middleware.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -88,7 +90,7 @@ app.use((err, req, res, next) => {
  * @name logStore
  */
 
-app.get("/logs", (req, res) => {
+app.get("/logs", authUser, adminOnly, (req, res) => {
   res.json({ logs: getLogs() });
 });
 

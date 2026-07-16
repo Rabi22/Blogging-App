@@ -5,7 +5,7 @@ import userAuthMiddleware from '../middleware/userAuth.middleware.js';
 
 const blogRouter = express.Router()
 
-blogRouter.post("/add", upload.any(), userAuthMiddleware, addBlog);
+blogRouter.post("/add", userAuthMiddleware, upload.any(), addBlog);
 blogRouter.get("/all",getAllBlogs);
 blogRouter.get("/:blogId",getBlogById);
 blogRouter.post("/delete/:blogId",userAuthMiddleware,deleteBlogById);

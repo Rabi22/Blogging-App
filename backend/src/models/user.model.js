@@ -33,6 +33,11 @@ const userSchema = new mongoose.Schema({
             }),
         message: "Password must be stronger (include uppercase, lowercase, number, and symbol)"
         }
+    },
+    role: {
+        type: String,
+        enum: ['user', 'admin'],
+        default: 'user'
     }
 })
 

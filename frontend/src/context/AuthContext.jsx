@@ -17,7 +17,7 @@ export function AuthProvider({ children }) {
         if (check.ok) {
           setUser(parsed);
         } else {
-          // Server session expired — clear stale local state
+          // Server session expired — stale local state
           localStorage.removeItem('blog_user');
         }
       } catch {
@@ -31,10 +31,9 @@ export function AuthProvider({ children }) {
       const stored = localStorage.getItem('blog_user');
       if (stored) {
         const parsed = JSON.parse(stored);
-        // Validate stored data has required fields
         if (parsed && parsed.id && parsed.username) {
           verifySession(parsed);
-          return; // loading stays true until verify completes
+          return; 
         } else {
           localStorage.removeItem('blog_user');
         }
@@ -47,7 +46,6 @@ export function AuthProvider({ children }) {
 
   const login = (u) => {
     if (u) {
-      // Ensure role is stored
       const userData = {
         id: u.id,
         username: u.username,

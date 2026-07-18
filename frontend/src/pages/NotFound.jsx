@@ -22,9 +22,9 @@ export default function NotFound() {
 }
 
 const styles = {
-  page:  { minHeight:'70vh', display:'flex', alignItems:'center', justifyContent:'center' },
+  page: { minHeight:'70vh', display:'flex', alignItems:'center', justifyContent:'center' },
   inner: { textAlign:'center', display:'flex', flexDirection:'column', alignItems:'center', gap:'20px' },
-  code:  { fontFamily:"'Playfair Display',serif", fontSize:'120px', fontWeight:700, lineHeight:1, background:'linear-gradient(135deg,#6366f1,#8b5cf6)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent' },
+  code: { fontFamily:"'Playfair Display',serif", fontSize:'120px', fontWeight:700, lineHeight:1, background:'linear-gradient(135deg,#6366f1,#8b5cf6)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent' },
   title: { fontFamily:"'Playfair Display',serif", fontSize:'28px', fontWeight:700, color:'#f1f5f9' },
-  text:  { color:'#475569', fontSize:'15px', maxWidth:'360px' },
+  text: { color:'#475569', fontSize:'15px', maxWidth:'360px' },
 };

@@ -7,15 +7,15 @@ import anime from 'animejs';
 const CATEGORIES = ['Technology','Design','Science','Culture','Business','Lifestyle','Other'];
 
 export default function CreateBlog() {
-  const { user }    = useAuth();
-  const navigate    = useNavigate();
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const isAdmin = user?.role === 'admin';
-  const [form, setForm] = useState({ title:'', subTitle:'', description:'', category:'Technology', isPublished: false });
-  const [image,    setImage]   = useState(null);
-  const [preview,  setPreview] = useState(null);
-  const [error,    setError]   = useState('');
-  const [loading,  setLoading] = useState(false);
-  const [success,  setSuccess] = useState(false);
+  const [form,setForm] = useState({ title:'', subTitle:'', description:'', category:'Technology', isPublished: false });
+  const [image,setImage] = useState(null);
+  const [preview,setPreview] = useState(null);
+  const [error,setError] = useState('');
+  const [loading,setLoading] = useState(false);
+  const [success,setSuccess] = useState(false);
   const pageRef = useRef(null);
 
   useEffect(() => {
@@ -30,7 +30,6 @@ export default function CreateBlog() {
   const handleImage = (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    // Validate file size (5MB max)
     if (file.size > 5 * 1024 * 1024) {
       setError('Image must be smaller than 5MB.');
       return;
@@ -169,23 +168,23 @@ export default function CreateBlog() {
 }
 
 const styles = {
-  wrapper:  { padding:'60px 24px 80px' },
-  header:   { textAlign:'center', marginBottom:'36px', display:'flex', flexDirection:'column', alignItems:'center', gap:'12px' },
-  title:    { fontFamily:"'Playfair Display',serif", fontSize:'clamp(28px,4vw,42px)', fontWeight:700, color:'#f1f5f9' },
+  wrapper: { padding:'60px 24px 80px' },
+  header: { textAlign:'center', marginBottom:'36px', display:'flex', flexDirection:'column', alignItems:'center', gap:'12px' },
+  title: { fontFamily:"'Playfair Display',serif", fontSize:'clamp(28px,4vw,42px)', fontWeight:700, color:'#f1f5f9' },
   subtitle: { color:'#64748b', fontSize:'15px' },
-  form:     { display:'flex', flexDirection:'column', gap:'22px' },
+  form: { display:'flex', flexDirection:'column', gap:'22px' },
   uploadArea: { border:'2px dashed rgba(99,102,241,0.25)', borderRadius:'14px', cursor:'pointer', overflow:'hidden', minHeight:'200px', display:'flex', alignItems:'center', justifyContent:'center', transition:'border-color 0.2s', background:'#0c0c16' },
   uploadPlaceholder: { display:'flex', flexDirection:'column', alignItems:'center', gap:'10px', padding:'40px' },
   uploadIcon: { fontSize:'40px' },
   uploadText: { color:'#94a3b8', fontSize:'15px', fontWeight:500 },
   uploadHint: { color:'#475569', fontSize:'12px' },
   previewImg: { width:'100%', height:'240px', objectFit:'cover' },
-  row:      { display:'flex', gap:'20px', flexWrap:'wrap' },
+  row: { display:'flex', gap:'20px', flexWrap:'wrap' },
   publishToggle: { display:'flex', flexDirection:'column', gap:'8px', justifyContent:'center' },
-  toggle:   { display:'flex', alignItems:'center', gap:'10px', cursor:'pointer' },
+  toggle: { display:'flex', alignItems:'center', gap:'10px', cursor:'pointer' },
   toggleTrack: { width:'44px', height:'24px', borderRadius:'12px', background:'#1a1a2e', border:'1px solid rgba(99,102,241,0.2)', position:'relative', transition:'all 0.25s' },
   toggleActive: { background:'rgba(99,102,241,0.25)', borderColor:'rgba(99,102,241,0.5)' },
   toggleThumb: { position:'absolute', top:'3px', left:'3px', width:'16px', height:'16px', borderRadius:'50%', background:'#475569', transition:'all 0.25s' },
   thumbActive: { left:'23px', background:'#6366f1' },
-  actions:  { display:'flex', gap:'12px', justifyContent:'flex-end', paddingTop:'8px' },
+  actions: { display:'flex', gap:'12px', justifyContent:'flex-end', paddingTop:'8px' },
 };

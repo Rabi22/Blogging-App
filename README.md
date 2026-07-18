@@ -1,13 +1,13 @@
 # Inkwell
 
-[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://your-deployed-url-here.com)
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://blogging-app-1-7a51.onrender.com)
 [![Node.js](https://img.shields.io/badge/Node.js-18+-339933?logo=node.js&logoColor=white)](https://nodejs.org)
 [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)](https://react.dev)
 [![Express](https://img.shields.io/badge/Express-5-000000?logo=express&logoColor=white)](https://expressjs.com)
 [![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose-47A248?logo=mongodb&logoColor=white)](https://mongoosejs.com)
 [![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)](https://vitejs.dev)
 
-**Live demo:** [your-deployed-url-here.com](https://blogging-app-1-7a51.onrender.com)
+**Live demo:** [Link](https://blogging-app-1-7a51.onrender.com)
 
 A full-stack blogging platform...
 

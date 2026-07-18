@@ -17,9 +17,19 @@ const blogSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  description: {
+    type: String,
+    trim: true,
+    default: ''
+  },
   image: {
     type: String,
     required: true,
+  },
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'users',
+    default: null
   },
   isPublished: {
     type: Boolean,

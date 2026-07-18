@@ -1,6 +1,7 @@
 import express from 'express'
 import authUser from '../middleware/userAuth.middleware.js'
 import authController from '../controllers/auth.controller.js'
+import adminOnly from '../middleware/adminOnly.middleware.js'
 import { approveComment, deleteComment, getAllBlogsAdmin, getAllComments, getDashboard } from '../middleware/adminFeature.middleware.js'
 
 const adminRoute = express.Router()
@@ -29,11 +30,11 @@ adminRoute.post("/adminlogin",authController.loginUserController)
 
 adminRoute.get("/adminlogout",authController.logoutUserController)
 
-adminRoute.get("/admin-comments",authUser,getAllComments)
+adminRoute.get("/admin-comments",authUser,adminOnly,getAllComments)
 
-adminRoute.get("/admin-blogs",authUser,getAllBlogsAdmin) 
-adminRoute.get("/delete-comment",authUser,deleteComment) 
-adminRoute.get("/approve-comment",authUser,approveComment) 
-adminRoute.get("/admin-dashboard",authUser,getDashboard) 
+adminRoute.get("/admin-blogs",authUser,adminOnly,getAllBlogsAdmin) 
+adminRoute.delete("/delete-comment/:id",authUser,adminOnly,deleteComment) 
+adminRoute.put("/approve-comment/:id",authUser,adminOnly,approveComment) 
+adminRoute.get("/admin-dashboard",authUser,adminOnly,getDashboard) 
 
 export default adminRoute

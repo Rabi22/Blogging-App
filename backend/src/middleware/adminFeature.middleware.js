@@ -15,7 +15,7 @@ export const getAllComments = async(req,res)=>{
         const comments = await Comment.find({}).populate("blog").sort({createdAt:-1});
         res.json({success:true,comments})
     }catch(err){
-        res.json({message:err})
+        res.json({message:err.message})
     }
 }
 
@@ -36,7 +36,7 @@ export const getDashboard = async (req, res) =>{
 
 export const deleteComment = async (req, res) =>{
     try{
-        const {id} = req.body;
+        const { id } = req.params;
         await Comment.findByIdAndDelete(id);
         res.json({success:true,message:"Comment deleted successfully"})
     }catch(err){
@@ -46,7 +46,7 @@ export const deleteComment = async (req, res) =>{
 
 export const approveComment = async (req, res) =>{
     try{
-        const {id} = req.body;
+        const { id } = req.params;
         await Comment.findByIdAndUpdate(id,{isApproved:true});
         
         if(Comment.findByIdAndUpdate(id,{isApproved:false})){

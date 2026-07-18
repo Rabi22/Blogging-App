@@ -26,7 +26,7 @@ async function authUser(req, res, next) {
       return res.status(401).json({ message: 'Token has been revoked (blacklisted)' });
     }
 
-    req.user = { id: decoded.id, username: decoded.username };
+    req.user = { id: decoded.id, username: decoded.username, role: decoded.role || 'user' };
     return next();
   } catch (err) {
         return res.status(401).json({ status: "error",message: 'Invalid or expired token'});

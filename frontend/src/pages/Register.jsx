@@ -7,13 +7,15 @@ import anime from 'animejs';
 export default function Register() {
   const { login, user } = useAuth();
   const navigate = useNavigate();
-  const [form,    setForm]    = useState({ username:'', email:'', password:'', bootstrapToken:'' });
-  const [error,   setError]   = useState('');
-  const [loading, setLoading] = useState(false);
+  const [form,setForm] = useState({ username:'', email:'', password:'', bootstrapToken:'' });
+  const [error,setError] = useState('');
+  const [loading,setLoading] = useState(false);
   const cardRef = useRef(null);
   const formRef = useRef(null);
 
-  useEffect(() => { if (user) navigate('/admin/dashboard'); }, [user]);
+  useEffect(() => {
+    if (user) navigate('/admin/dashboard'); 
+  }, [user]);
 
   useEffect(() => {
     anime({ targets: cardRef.current, translateY:[50,0], opacity:[0,1], duration:700, easing:'easeOutExpo' });
@@ -114,16 +116,16 @@ export default function Register() {
 }
 
 const styles = {
-  page:   { minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center', padding:'40px 20px', position:'relative' },
-  bg:     { position:'fixed', inset:0, background:'radial-gradient(ellipse 70% 60% at 50% 0%, rgba(99,102,241,0.15) 0%, transparent 65%)', pointerEvents:'none', zIndex:0 },
-  card:   { position:'relative', zIndex:1, width:'100%', maxWidth:'440px', background:'#10101e', border:'1px solid rgba(99,102,241,0.18)', borderRadius:'20px', overflow:'hidden', boxShadow:'0 20px 60px rgba(0,0,0,0.6)' },
+  page: { minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center', padding:'40px 20px', position:'relative' },
+  bg: { position:'fixed', inset:0, background:'radial-gradient(ellipse 70% 60% at 50% 0%, rgba(99,102,241,0.15) 0%, transparent 65%)', pointerEvents:'none', zIndex:0 },
+  card: { position:'relative', zIndex:1, width:'100%', maxWidth:'440px', background:'#10101e', border:'1px solid rgba(99,102,241,0.18)', borderRadius:'20px', overflow:'hidden', boxShadow:'0 20px 60px rgba(0,0,0,0.6)' },
   cardHeader: { padding:'36px 36px 0', textAlign:'center', display:'flex', flexDirection:'column', alignItems:'center', gap:'12px' },
   backLink: { alignSelf:'flex-start', fontSize:'13px', color:'#475569', textDecoration:'none', marginBottom:'4px' },
   iconWrap: { width:'52px', height:'52px', borderRadius:'14px', background:'rgba(99,102,241,0.12)', border:'1px solid rgba(99,102,241,0.25)', display:'flex', alignItems:'center', justifyContent:'center' },
-  title:    { fontFamily:"'Playfair Display',serif", fontSize:'26px', fontWeight:700, color:'#f1f5f9' },
+  title: { fontFamily:"'Playfair Display',serif", fontSize:'26px', fontWeight:700, color:'#f1f5f9' },
   subtitle: { fontSize:'14px', color:'#475569', marginBottom:'8px' },
-  form:     { padding:'28px 36px', display:'flex', flexDirection:'column', gap:'18px' },
-  hint:     { fontSize:'11px', color:'#475569' },
-  footer:   { textAlign:'center', fontSize:'13px', color:'#475569', padding:'0 36px 28px' },
+  form: { padding:'28px 36px', display:'flex', flexDirection:'column', gap:'18px' },
+  hint: { fontSize:'11px', color:'#475569' },
+  footer: { textAlign:'center', fontSize:'13px', color:'#475569', padding:'0 36px 28px' },
   footerLink: { color:'#6366f1', textDecoration:'none', fontWeight:500 },
 };

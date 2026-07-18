@@ -6,15 +6,15 @@ import CommentSection from '../components/blog/CommentSection';
 import anime from 'animejs';
 
 export default function BlogDetail() {
-  const { id }        = useParams();
-  const { user }      = useAuth();
-  const navigate      = useNavigate();
-  const [blog, setBlog]       = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [deleting, setDeleting] = useState(false);
-  const [toggling, setToggling] = useState(false);
-  const [actionMsg, setActionMsg] = useState(null);
-  const heroRef  = useRef(null);
+  const { id } = useParams();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [blog,setBlog] = useState(null);
+  const [loading,setLoading] = useState(true);
+  const [deleting,setDeleting] = useState(false);
+  const [toggling,setToggling] = useState(false);
+  const [actionMsg,setActionMsg] = useState(null);
+  const heroRef = useRef(null);
   const titleRef = useRef(null);
 
   useEffect(() => {
@@ -152,10 +152,10 @@ const styles = {
   heroOverlay: { position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(7,7,13,0) 30%, rgba(7,7,13,1) 100%)' },
   article: { maxWidth:'780px', margin:'0 auto', padding:'40px 0 80px' },
   metaRow: { display:'flex', alignItems:'center', gap:'14px', marginBottom:'18px', flexWrap:'wrap' },
-  date:    { fontSize:'13px', color:'#475569' },
-  title:   { fontFamily:"'Playfair Display',serif", fontSize:'clamp(28px,5vw,46px)', fontWeight:700, color:'#f1f5f9', lineHeight:1.2, marginBottom:'16px' },
+  date: { fontSize:'13px', color:'#475569' },
+  title: { fontFamily:"'Playfair Display',serif", fontSize:'clamp(28px,5vw,46px)', fontWeight:700, color:'#f1f5f9', lineHeight:1.2, marginBottom:'16px' },
   subtitle:{ fontSize:'18px', color:'#64748b', lineHeight:1.7, marginBottom:'20px' },
   adminActions: { display:'flex', flexWrap:'wrap', gap:'10px', padding:'16px 0', borderTop:'1px solid rgba(99,102,241,0.1)', borderBottom:'1px solid rgba(99,102,241,0.1)', alignItems:'center' },
   contentBlock: { padding:'8px 0 24px' },
-  contentNote:  { fontSize:'17px', color:'#94a3b8', lineHeight:1.8, whiteSpace:'pre-wrap' },
+  contentNote: { fontSize:'17px', color:'#94a3b8', lineHeight:1.8, whiteSpace:'pre-wrap' },
 };

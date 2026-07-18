@@ -8,12 +8,12 @@ export default function AdminDashboard() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('overview');
-  const [stats, setStats]         = useState(null);
-  const [blogs, setBlogs]         = useState([]);
-  const [comments, setComments]   = useState([]);
-  const [loading, setLoading]     = useState(true);
-  const [msg, setMsg]             = useState(null);
-  const [actionId, setActionId]   = useState(null); // tracking loading state for single item actions
+  const [stats, setStats] = useState(null);
+  const [blogs, setBlogs] = useState([]);
+  const [comments, setComments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [msg, setMsg] = useState(null);
+  const [actionId, setActionId] = useState(null); // tracking loading state for single item actions
   
   const headerRef = useRef(null);
   const contentRef = useRef(null);
@@ -24,7 +24,7 @@ export default function AdminDashboard() {
   }, []);
 
   useEffect(() => {
-    // Animate tab content change
+    // tab content change animation
     if (contentRef.current) {
       anime({
         targets: contentRef.current,
@@ -123,9 +123,6 @@ export default function AdminDashboard() {
     setActionId(null);
     if (handleAuthError(status)) return;
     if (ok) {
-      // Backend has a known bug: it always sends a misleading "Published : True" message,
-      // but the actual approval (findByIdAndUpdate isApproved:true) DOES execute.
-      // So we treat any 200 response as success and update locally.
       setComments(prev => prev.map(c => c._id === comment._id ? { ...c, isApproved: true } : c));
       showMsg('success', 'Comment approved.');
       // Refresh stats
@@ -376,32 +373,32 @@ const StatCard = ({ title, value, icon, color = '#f1f5f9' }) => (
 );
 
 const s = {
-  wrap:      { padding:'48px 24px 80px' },
-  header:    { display:'flex', justifyContent:'space-between', alignItems:'flex-start', marginBottom:'32px', flexWrap:'wrap', gap:'16px' },
-  title:     { fontFamily:"'Playfair Display',serif", fontSize:'clamp(26px,4vw,38px)', fontWeight:700, color:'#f1f5f9', marginTop:'10px' },
-  sub:       { color:'#475569', fontSize:'14px', marginTop:'4px' },
-  toast:     { marginBottom:'20px', fontSize:'14px' },
-  loadWrap:  { display:'flex', flexDirection:'column', alignItems:'center', padding:'80px 0' },
-  empty:     { textAlign:'center', color:'#475569', padding:'60px 0' },
+  wrap: { padding:'48px 24px 80px' },
+  header: { display:'flex', justifyContent:'space-between', alignItems:'flex-start', marginBottom:'32px', flexWrap:'wrap', gap:'16px' },
+  title: { fontFamily:"'Playfair Display',serif", fontSize:'clamp(26px,4vw,38px)', fontWeight:700, color:'#f1f5f9', marginTop:'10px' },
+  sub: { color:'#475569', fontSize:'14px', marginTop:'4px' },
+  toast: { marginBottom:'20px', fontSize:'14px' },
+  loadWrap: { display:'flex', flexDirection:'column', alignItems:'center', padding:'80px 0' },
+  empty: { textAlign:'center', color:'#475569', padding:'60px 0' },
   
-  tabs:      { display:'flex', gap:'8px', borderBottom:'1px solid rgba(99,102,241,0.1)', marginBottom:'24px', overflowX:'auto' },
-  tab:       { background:'transparent', border:'none', padding:'10px 16px', color:'#64748b', fontSize:'15px', fontWeight:500, cursor:'pointer', borderBottom:'2px solid transparent', transition:'all 0.2s', display:'flex', alignItems:'center', gap:'6px', whiteSpace:'nowrap' },
+  tabs: { display:'flex', gap:'8px', borderBottom:'1px solid rgba(99,102,241,0.1)', marginBottom:'24px', overflowX:'auto' },
+  tab: { background:'transparent', border:'none', padding:'10px 16px', color:'#64748b', fontSize:'15px', fontWeight:500, cursor:'pointer', borderBottom:'2px solid transparent', transition:'all 0.2s', display:'flex', alignItems:'center', gap:'6px', whiteSpace:'nowrap' },
   activeTab: { background:'transparent', border:'none', padding:'10px 16px', color:'#6366f1', fontSize:'15px', fontWeight:600, cursor:'pointer', borderBottom:'2px solid #6366f1', display:'flex', alignItems:'center', gap:'6px', whiteSpace:'nowrap' },
   notiBadge: { background:'#ef4444', color:'#fff', fontSize:'11px', padding:'2px 6px', borderRadius:'10px', fontWeight:700 },
-  countBadge:{ background:'rgba(99,102,241,0.15)', color:'#818cf8', fontSize:'11px', padding:'2px 6px', borderRadius:'10px', fontWeight:700 },
+  countBadge: { background:'rgba(99,102,241,0.15)', color:'#818cf8', fontSize:'11px', padding:'2px 6px', borderRadius:'10px', fontWeight:700 },
 
   statsGrid: { display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(200px, 1fr))', gap:'20px' },
-  statCard:  { background:'#10101e', border:'1px solid rgba(99,102,241,0.1)', borderRadius:'16px', padding:'24px', display:'flex', alignItems:'center', gap:'16px', boxShadow:'0 4px 20px rgba(0,0,0,0.2)' },
+  statCard: { background:'#10101e', border:'1px solid rgba(99,102,241,0.1)', borderRadius:'16px', padding:'24px', display:'flex', alignItems:'center', gap:'16px', boxShadow:'0 4px 20px rgba(0,0,0,0.2)' },
   
   tableWrap: { display:'flex', flexDirection:'column', gap:'10px' },
-  thead:     { display:'flex', alignItems:'center', gap:'12px', padding:'0 16px 10px', borderBottom:'1px solid rgba(99,102,241,0.12)', fontSize:'12px', fontWeight:600, color:'#475569', letterSpacing:'0.05em', textTransform:'uppercase' },
-  thCell:    { width:'110px', flexShrink:0 },
-  row:       { display:'flex', alignItems:'center', gap:'12px', padding:'14px 16px', background:'#10101e', border:'1px solid rgba(99,102,241,0.1)', borderRadius:'12px', flexWrap:'wrap' },
+  thead: { display:'flex', alignItems:'center', gap:'12px', padding:'0 16px 10px', borderBottom:'1px solid rgba(99,102,241,0.12)', fontSize:'12px', fontWeight:600, color:'#475569', letterSpacing:'0.05em', textTransform:'uppercase' },
+  thCell: { width:'110px', flexShrink:0 },
+  row: { display:'flex', alignItems:'center', gap:'12px', padding:'14px 16px', background:'#10101e', border:'1px solid rgba(99,102,241,0.1)', borderRadius:'12px', flexWrap:'wrap' },
   titleCell: { flex:1, display:'flex', alignItems:'center', gap:'14px', minWidth:'200px' },
-  thumb:     { width:'60px', height:'44px', objectFit:'cover', borderRadius:'6px', flexShrink:0 },
+  thumb: { width:'60px', height:'44px', objectFit:'cover', borderRadius:'6px', flexShrink:0 },
   blogTitle: { fontSize:'14px', fontWeight:600, color:'#e2e8f0', lineHeight:1.4 },
-  blogSub:   { fontSize:'12px', color:'#475569', marginTop:'2px' },
-  cell:      { width:'110px', flexShrink:0, display:'flex', alignItems:'center', gap:'6px' },
+  blogSub: { fontSize:'12px', color:'#475569', marginTop:'2px' },
+  cell: { width:'110px', flexShrink:0, display:'flex', alignItems:'center', gap:'6px' },
   statusDot: { width:'7px', height:'7px', borderRadius:'50%', flexShrink:0 },
-  actions:   { display:'flex', gap:'8px', flexWrap:'wrap', justifyContent:'flex-end' },
+  actions: { display:'flex', gap:'8px', flexWrap:'wrap', justifyContent:'flex-end' },
 };

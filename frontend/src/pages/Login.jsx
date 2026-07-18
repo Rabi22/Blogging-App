@@ -54,7 +54,7 @@ export default function Login() {
       login(data.user);
       navigate('/admin/dashboard');
     } else {
-      // Handle different error scenarios
+      // error handling for login/reg page
       let errorMsg = 'Invalid email or password.';
       if (status === 0) {
         errorMsg = 'Cannot reach the server. Please make sure the backend is running.';
@@ -104,21 +104,20 @@ export default function Login() {
 }
 
 const s = {
-  page:    {minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center',padding:'40px 20px',position:'relative'},
-  bg:      {position:'fixed',inset:0,background:'radial-gradient(ellipse 70% 60% at 50% 0%,rgba(99,102,241,0.15) 0%,transparent 65%)',pointerEvents:'none',zIndex:0},
-  card:    {position:'relative',zIndex:1,width:'100%',maxWidth:'420px',background:'#10101e',border:'1px solid rgba(99,102,241,0.18)',borderRadius:'20px',overflow:'hidden',boxShadow:'0 20px 60px rgba(0,0,0,0.6)'},
-  head:    {padding:'36px 36px 0',textAlign:'center',display:'flex',flexDirection:'column',alignItems:'center',gap:'12px'},
-  back:    {alignSelf:'flex-start',fontSize:'13px',color:'#475569',textDecoration:'none',marginBottom:'4px'},
-  icon:    {width:'52px',height:'52px',borderRadius:'14px',background:'rgba(99,102,241,0.12)',border:'1px solid rgba(99,102,241,0.25)',display:'flex',alignItems:'center',justifyContent:'center'},
-  title:   {fontFamily:"'Playfair Display',serif",fontSize:'26px',fontWeight:700,color:'#f1f5f9'},
-  sub:     {fontSize:'14px',color:'#475569',marginBottom:'8px'},
-  form:    {padding:'28px 36px',display:'flex',flexDirection:'column',gap:'18px'},
-  foot:    {textAlign:'center',fontSize:'13px',color:'#475569',padding:'0 36px 28px'},
-  link:    {color:'#6366f1',textDecoration:'none',fontWeight:500},
-  // Modal
+  page: {minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center',padding:'40px 20px',position:'relative'},
+  bg: {position:'fixed',inset:0,background:'radial-gradient(ellipse 70% 60% at 50% 0%,rgba(99,102,241,0.15) 0%,transparent 65%)',pointerEvents:'none',zIndex:0},
+  card: {position:'relative',zIndex:1,width:'100%',maxWidth:'420px',background:'#10101e',border:'1px solid rgba(99,102,241,0.18)',borderRadius:'20px',overflow:'hidden',boxShadow:'0 20px 60px rgba(0,0,0,0.6)'},
+  head: {padding:'36px 36px 0',textAlign:'center',display:'flex',flexDirection:'column',alignItems:'center',gap:'12px'},
+  back: {alignSelf:'flex-start',fontSize:'13px',color:'#475569',textDecoration:'none',marginBottom:'4px'},
+  icon: {width:'52px',height:'52px',borderRadius:'14px',background:'rgba(99,102,241,0.12)',border:'1px solid rgba(99,102,241,0.25)',display:'flex',alignItems:'center',justifyContent:'center'},
+  title: {fontFamily:"'Playfair Display',serif",fontSize:'26px',fontWeight:700,color:'#f1f5f9'},
+  sub: {fontSize:'14px',color:'#475569',marginBottom:'8px'},
+  form: {padding:'28px 36px',display:'flex',flexDirection:'column',gap:'18px'},
+  foot: {textAlign:'center',fontSize:'13px',color:'#475569',padding:'0 36px 28px'},
+  link: {color:'#6366f1',textDecoration:'none',fontWeight:500},
   overlay: {position:'fixed',inset:0,background:'rgba(0,0,0,0.75)',backdropFilter:'blur(8px)',display:'flex',alignItems:'center',justifyContent:'center',zIndex:999,padding:'20px'},
-  modal:   {background:'#10101e',border:'1px solid rgba(239,68,68,0.3)',borderRadius:'18px',padding:'32px 28px',maxWidth:'360px',width:'100%',display:'flex',flexDirection:'column',alignItems:'center',gap:'16px',boxShadow:'0 20px 60px rgba(0,0,0,0.8)'},
-  mIcon:   {width:'60px',height:'60px',borderRadius:'50%',background:'rgba(239,68,68,0.1)',border:'1px solid rgba(239,68,68,0.25)',display:'flex',alignItems:'center',justifyContent:'center'},
-  mTitle:  {fontFamily:"'Playfair Display',serif",fontSize:'20px',fontWeight:700,color:'#f1f5f9'},
-  mMsg:    {fontSize:'14px',color:'#94a3b8',textAlign:'center',lineHeight:1.65},
+  modal: {background:'#10101e',border:'1px solid rgba(239,68,68,0.3)',borderRadius:'18px',padding:'32px 28px',maxWidth:'360px',width:'100%',display:'flex',flexDirection:'column',alignItems:'center',gap:'16px',boxShadow:'0 20px 60px rgba(0,0,0,0.8)'},
+  mIcon: {width:'60px',height:'60px',borderRadius:'50%',background:'rgba(239,68,68,0.1)',border:'1px solid rgba(239,68,68,0.25)',display:'flex',alignItems:'center',justifyContent:'center'},
+  mTitle: {fontFamily:"'Playfair Display',serif",fontSize:'20px',fontWeight:700,color:'#f1f5f9'},
+  mMsg: {fontSize:'14px',color:'#94a3b8',textAlign:'center',lineHeight:1.65},
 };

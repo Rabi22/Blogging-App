@@ -41,14 +41,13 @@ export default function Navbar() {
   const handleLogout = async () => {
     setLoggingOut(true);
     try {
-      // Use the correct logout API based on user role
       if (isAdmin) {
         await authAPI.logout();
       } else {
         await userAuthAPI.logout();
       }
     } catch {
-      // Even if the server call fails, clear local state
+      res.json({message:"Error in Logout handling -frontend"})
     }
     logout();
     setLoggingOut(false);

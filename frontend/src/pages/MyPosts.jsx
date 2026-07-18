@@ -37,7 +37,6 @@ export default function MyPosts() {
     <main className="page-enter">
       <div className="container" style={s.wrapper}>
         <div ref={pageRef} style={{ opacity: 0 }}>
-          {/* Header */}
           <div style={s.header}>
             <span className="badge">✦ My Posts</span>
             <h1 style={s.title}>Your Stories</h1>
@@ -134,7 +133,7 @@ function BlogCard({ blog, status }) {
 
   const statusConfig = {
     published: { color: '#10b981', bg: 'rgba(16,185,129,0.1)', border: 'rgba(16,185,129,0.25)', label: '✓ Published' },
-    review:    { color: '#fbbf24', bg: 'rgba(251,191,36,0.1)', border: 'rgba(251,191,36,0.25)', label: '⏳ Under Review' },
+    review: { color: '#fbbf24', bg: 'rgba(251,191,36,0.1)', border: 'rgba(251,191,36,0.25)', label: '⏳ Under Review' },
   };
   const cfg = statusConfig[status];
 
@@ -171,40 +170,38 @@ function BlogCard({ blog, status }) {
 }
 
 const s = {
-  wrapper:    { padding: '60px 24px 80px' },
-  header:     { textAlign: 'center', marginBottom: '36px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' },
-  title:      { fontFamily: "'Playfair Display',serif", fontSize: 'clamp(28px,4vw,42px)', fontWeight: 700, color: '#f1f5f9' },
-  subtitle:   { color: '#64748b', fontSize: '15px' },
+  wrapper: { padding: '60px 24px 80px' },
+  header: { textAlign: 'center', marginBottom: '36px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' },
+  title: { fontFamily: "'Playfair Display',serif", fontSize: 'clamp(28px,4vw,42px)', fontWeight: 700, color: '#f1f5f9' },
+  subtitle: { color: '#64748b', fontSize: '15px' },
 
-  statsRow:   { display: 'flex', gap: '16px', justifyContent: 'center', marginBottom: '32px', flexWrap: 'wrap' },
-  statCard:   { background: '#10101e', border: '1px solid rgba(99,102,241,0.15)', borderRadius: '14px', padding: '20px 28px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', minWidth: '120px' },
+  statsRow: { display: 'flex', gap: '16px', justifyContent: 'center', marginBottom: '32px', flexWrap: 'wrap' },
+  statCard: { background: '#10101e', border: '1px solid rgba(99,102,241,0.15)', borderRadius: '14px', padding: '20px 28px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', minWidth: '120px' },
   statNumber: { fontFamily: "'Playfair Display',serif", fontSize: '28px', fontWeight: 700, color: '#f1f5f9' },
-  statLabel:  { fontSize: '12px', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' },
+  statLabel: { fontSize: '12px', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' },
 
-  actionRow:  { display: 'flex', justifyContent: 'center', marginBottom: '40px' },
+  actionRow: { display: 'flex', justifyContent: 'center', marginBottom: '40px' },
 
-  center:     { display: 'flex', justifyContent: 'center', padding: '60px 0' },
-  empty:      { display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', padding: '60px 20px', textAlign: 'center' },
+  center: { display: 'flex', justifyContent: 'center', padding: '60px 0' },
+  empty: { display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', padding: '60px 20px', textAlign: 'center' },
   emptyTitle: { fontFamily: "'Playfair Display',serif", fontSize: '22px', fontWeight: 700, color: '#f1f5f9' },
   emptyText:  { color: '#64748b', fontSize: '14px', maxWidth: '400px', lineHeight: 1.65 },
 
-  section:      { marginBottom: '40px' },
+  section: { marginBottom: '40px' },
   sectionTitle: { fontFamily: "'Playfair Display',serif", fontSize: '20px', fontWeight: 700, color: '#f1f5f9', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px' },
-  dot:          { width: '8px', height: '8px', borderRadius: '50%', display: 'inline-block' },
+  dot: { width: '8px', height: '8px', borderRadius: '50%', display: 'inline-block' },
 
-  grid:       { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '20px' },
-
-  card:       { background: '#10101e', border: '1px solid rgba(99,102,241,0.12)', borderRadius: '16px', overflow: 'hidden', transition: 'border-color 0.25s, transform 0.25s', cursor: 'default' },
+  grid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '20px' },
+  card: { background: '#10101e', border: '1px solid rgba(99,102,241,0.12)', borderRadius: '16px', overflow: 'hidden', transition: 'border-color 0.25s, transform 0.25s', cursor: 'default' },
   cardImgWrap: { position: 'relative', height: '180px', overflow: 'hidden', background: '#0c0c16' },
-  cardImg:     { width: '100%', height: '100%', objectFit: 'cover' },
+  cardImg: { width: '100%', height: '100%', objectFit: 'cover' },
   cardImgFallback: { width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '36px', background: '#0c0c16' },
   statusBadge: { position: 'absolute', top: '12px', right: '12px', fontSize: '11px', fontWeight: 600, padding: '4px 10px', borderRadius: '999px' },
-
-  cardBody:    { padding: '18px 20px' },
+  cardBody: { padding: '18px 20px' },
   cardCategory: { fontSize: '11px', fontWeight: 600, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.06em' },
-  cardTitle:    { fontFamily: "'Playfair Display',serif", fontSize: '18px', fontWeight: 700, color: '#f1f5f9', margin: '6px 0 4px', lineHeight: 1.35 },
-  cardSub:      { fontSize: '13px', color: '#64748b', lineHeight: 1.5, marginBottom: '8px' },
-  cardMeta:     { display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '10px', borderTop: '1px solid rgba(99,102,241,0.08)' },
-  cardDate:     { fontSize: '12px', color: '#475569' },
-  viewLink:     { fontSize: '13px', color: '#10b981', textDecoration: 'none', fontWeight: 500 },
+  cardTitle: { fontFamily: "'Playfair Display',serif", fontSize: '18px', fontWeight: 700, color: '#f1f5f9', margin: '6px 0 4px', lineHeight: 1.35 },
+  cardSub: { fontSize: '13px', color: '#64748b', lineHeight: 1.5, marginBottom: '8px' },
+  cardMeta: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '10px', borderTop: '1px solid rgba(99,102,241,0.08)' },
+  cardDate: { fontSize: '12px', color: '#475569' },
+  viewLink: { fontSize: '13px', color: '#10b981', textDecoration: 'none', fontWeight: 500 },
 };

@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import { userAuthAPI, authAPI } from '../api/api';
 
 const AuthContext = createContext(null);
 
@@ -7,22 +8,41 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const verifySession = async (parsed) => {
+      try {
+        // Verify the session is still valid on the server
+        const check = parsed.role === 'admin'
+          ? await authAPI.getDashboard()
+          : await userAuthAPI.getMe();
+        if (check.ok) {
+          setUser(parsed);
+        } else {
+          // Server session expired — clear stale local state
+          localStorage.removeItem('blog_user');
+        }
+      } catch {
+        localStorage.removeItem('blog_user');
+      } finally {
+        setLoading(false);
+      }
+    };
+
     try {
       const stored = localStorage.getItem('blog_user');
       if (stored) {
         const parsed = JSON.parse(stored);
         // Validate stored data has required fields
         if (parsed && parsed.id && parsed.username) {
-          setUser(parsed);
+          verifySession(parsed);
+          return; // loading stays true until verify completes
         } else {
           localStorage.removeItem('blog_user');
         }
       }
     } catch {
       localStorage.removeItem('blog_user');
-    } finally {
-      setLoading(false);
     }
+    setLoading(false);
   }, []);
 
   const login = (u) => {

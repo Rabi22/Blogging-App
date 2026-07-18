@@ -68,7 +68,6 @@ Blogging-App/
 <img width="2720" height="2080" alt="blogging_app_workflow" src="https://github.com/user-attachments/assets/7b2e03bd-4e95-457e-a503-e64c481d8ab6" />
 
 ---
----
 
 ## API Overview
 

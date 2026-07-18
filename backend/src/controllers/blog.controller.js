@@ -6,6 +6,7 @@ import Blog from '../models/blog.model.js';
 import Comment from '../models/comment.model.js';
 
 export const addBlog = async(req,res)=>{
+    const userRole = req.user?.role || 'user';
     const imageFile = req.file || req.files?.[0];
     let parsedBlog;
 
@@ -67,15 +68,23 @@ export const addBlog = async(req,res)=>{
         })  
 
         try {
+            // Normal users can only create drafts; admin can publish directly
+            const finalPublishStatus = userRole === 'admin' ? isPublished : false;
+
             await Blog.create({
                 title,
                 subTitle: subTitle?.trim() || '',
                 description: description?.trim() || '',
                 category,
                 image: response.url,
-                isPublished
+                author: req.user?.id || null,
+                isPublished: finalPublishStatus
             })
-            return res.status(200).json({message: "Blog created successfully"})
+
+            const message = userRole === 'admin'
+              ? 'Blog created successfully'
+              : 'Blog submitted for review! An admin will publish it soon.';
+            return res.status(200).json({ message })
         } catch (createErr) {
             if (imageKitFileId) {
                 try {
@@ -186,5 +195,19 @@ export const getBlogComment = async(req,res)=>{
         res.json({success:true,comments})
     }catch(err){
         res.json({message:err.message})
+    }
+}
+
+export const getMyBlogs = async(req,res)=>{
+    try{
+        const userId = req.user?.id;
+        if(!userId){
+            return res.status(401).json({message:"Authentication required"});
+        }
+        const blogs = await Blog.find({ author: userId }).sort({ createdAt: -1 });
+        res.json({ success: true, blogs });
+    }catch(err){
+        console.error("getMyBlogs error:", err);
+        res.status(500).json({ message: err.message });
     }
 }

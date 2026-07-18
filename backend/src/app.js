@@ -9,6 +9,7 @@ import * as Sentry from "@sentry/node";
 import { getLogs } from "../src/config/logStore.config.js"
 import blogRouter from "./routes/blog.route.js";
 import adminRoute from "./routes/admin.route.js";
+import userRoute from "./routes/user.route.js";
 import authUser from "./middleware/userAuth.middleware.js";
 import adminOnly from "./middleware/adminOnly.middleware.js";
 
@@ -56,6 +57,7 @@ app.use(cors({
  * @name Routes
  */
 app.use("/api/auth/admin", adminRoute);
+app.use("/api/auth/user", userRoute);
 app.use("/api/blog", blogRouter);
 
 /**

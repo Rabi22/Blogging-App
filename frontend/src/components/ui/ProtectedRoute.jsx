@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
-export default function ProtectedRoute({ children }) {
+export default function ProtectedRoute({ children, adminOnly = false }) {
   const { user, loading } = useAuth();
 
   if (loading) return (
@@ -10,10 +10,10 @@ export default function ProtectedRoute({ children }) {
     </div>
   );
 
-  if (!user) return <Navigate to="/admin/login" replace />;
+  if (!user) return <Navigate to="/login" replace />;
 
-  // Check admin role for admin-only pages
-  if (user.role !== 'admin') {
+  // Check admin role only for admin-protected pages
+  if (adminOnly && user.role !== 'admin') {
     return (
       <div style={{ display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', minHeight:'60vh', gap:'16px', padding:'40px 20px', textAlign:'center' }}>
         <span style={{ fontSize:'48px' }}>🔒</span>
@@ -25,8 +25,8 @@ export default function ProtectedRoute({ children }) {
           Admin privileges are required to access this page. 
           Please contact the site administrator or register with an admin bootstrap token.
         </p>
-        <a href="/admin/login" className="btn btn-outline" style={{ marginTop:'8px' }}>
-          ← Back to Login
+        <a href="/" className="btn btn-outline" style={{ marginTop:'8px' }}>
+          ← Back to Home
         </a>
       </div>
     );
@@ -34,3 +34,4 @@ export default function ProtectedRoute({ children }) {
 
   return children;
 }
+

@@ -45,6 +45,24 @@ export const authAPI = {
   logout: () => req('/api/auth/admin/adminlogout'),
 };
 
+export const userAuthAPI = {
+  login: (email, password) =>
+    req('/api/auth/user/login', {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+    }),
+
+  register: (username, email, password) =>
+    req('/api/auth/user/register', {
+      method: 'POST',
+      body: JSON.stringify({ username, email, password }),
+    }),
+
+  logout: () => req('/api/auth/user/logout'),
+
+  getMe: () => req('/api/auth/user/me'),
+};
+
 export const adminAPI = {
   getDashboard: () => req('/api/auth/admin/admin-dashboard'),
   getAllBlogs: () => req('/api/auth/admin/admin-blogs'),
@@ -61,4 +79,6 @@ export const blogAPI = {
   togglePublish: (id) => req('/api/blog/toggle-publish', { method: 'POST', body: JSON.stringify({ id }) }),
   addComment: (blog, name, content) => req('/api/blog/add-comment', { method: 'POST', body: JSON.stringify({ blog, name, content }) }),
   getComments: (blogId) => req('/api/blog/comments', { method: 'POST', body: JSON.stringify({ blogId }) }),
+  getMyBlogs: () => req('/api/blog/my-blogs'),
 };
+

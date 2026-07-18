@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { authAPI } from '../../api/api';
+import { authAPI, userAuthAPI } from '../../api/api';
 import anime from 'animejs';
 
 export default function Navbar() {
@@ -12,6 +12,8 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
+
+  const isAdmin = user?.role === 'admin';
 
   // Slide-down entrance animation
   useEffect(() => {
@@ -39,7 +41,12 @@ export default function Navbar() {
   const handleLogout = async () => {
     setLoggingOut(true);
     try {
-      await authAPI.logout();
+      // Use the correct logout API based on user role
+      if (isAdmin) {
+        await authAPI.logout();
+      } else {
+        await userAuthAPI.logout();
+      }
     } catch {
       // Even if the server call fails, clear local state
     }
@@ -64,7 +71,8 @@ export default function Navbar() {
         <div style={styles.links} className="desktop-links">
           <NavLink to="/" active={isActive('/')}>Home</NavLink>
           {user && <NavLink to="/create" active={isActive('/create')}>Write</NavLink>}
-          {user && <NavLink to="/admin/dashboard" active={isActive('/admin/dashboard')}>Dashboard</NavLink>}
+          {user && <NavLink to="/my-posts" active={isActive('/my-posts')}>My Posts</NavLink>}
+          {isAdmin && <NavLink to="/admin/dashboard" active={isActive('/admin/dashboard')}>Dashboard</NavLink>}
         </div>
 
         {/* Right side */}
@@ -72,27 +80,39 @@ export default function Navbar() {
           {user ? (
             <div className="user-profile" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <span style={styles.username}>
-                <span style={styles.avatarSmall}>{user.username?.[0]?.toUpperCase() || '?'}</span>
+                <span style={{...styles.avatarSmall, background: isAdmin ? 'linear-gradient(135deg,#6366f1,#8b5cf6)' : 'linear-gradient(135deg,#10b981,#059669)'}}>
+                  {user.username?.[0]?.toUpperCase() || '?'}
+                </span>
                 {user.username}
-                {user.role === 'admin' && <span style={styles.roleBadge}>Admin</span>}
+                <span style={{
+                  ...styles.roleBadge,
+                  color: isAdmin ? '#818cf8' : '#34d399',
+                  background: isAdmin ? 'rgba(99,102,241,0.12)' : 'rgba(16,185,129,0.12)',
+                }}>
+                  {isAdmin ? 'Admin' : 'Author'}
+                </span>
               </span>
               <button className="btn btn-outline btn-sm" onClick={handleLogout} disabled={loggingOut}>
                 {loggingOut ? <span className="spinner" style={{ width: 12, height: 12 }} /> : 'Logout'}
               </button>
             </div>
           ) : (
-            <Link
-              to="/admin/login"
-              title="Admin Panel"
-              style={styles.adminBtn}
-              id="admin-login-btn"
-            >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-              </svg>
-              Admin
-            </Link>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Link
+                to="/login"
+                style={styles.loginBtn}
+                id="user-login-btn"
+              >
+                Sign In
+              </Link>
+              <Link
+                to="/register"
+                style={styles.signupBtn}
+                id="user-signup-btn"
+              >
+                Sign Up
+              </Link>
+            </div>
           )}
 
           {/* Mobile hamburger */}
@@ -109,12 +129,16 @@ export default function Navbar() {
         <div style={styles.mobileMenu}>
           <Link to="/" style={styles.mobileLink} onClick={() => setMenuOpen(false)}>Home</Link>
           {user && <Link to="/create" style={styles.mobileLink} onClick={() => setMenuOpen(false)}>✏️ Write</Link>}
-          {user && <Link to="/admin/dashboard" style={styles.mobileLink} onClick={() => setMenuOpen(false)}>⚙️ Dashboard</Link>}
+          {user && <Link to="/my-posts" style={styles.mobileLink} onClick={() => setMenuOpen(false)}>📄 My Posts</Link>}
+          {isAdmin && <Link to="/admin/dashboard" style={styles.mobileLink} onClick={() => setMenuOpen(false)}>⚙️ Dashboard</Link>}
           {user
             ? <button style={{ ...styles.mobileLink, border: 'none', cursor: 'pointer', background: 'none', textAlign: 'left', width: '100%' }} onClick={handleLogout} disabled={loggingOut}>
               {loggingOut ? 'Logging out…' : '🚪 Logout'}
             </button>
-            : <Link to="/admin/login" style={styles.mobileLink} onClick={() => setMenuOpen(false)}>🔒 Admin</Link>
+            : <>
+              <Link to="/login" style={styles.mobileLink} onClick={() => setMenuOpen(false)}>🔑 Sign In</Link>
+              <Link to="/register" style={styles.mobileLink} onClick={() => setMenuOpen(false)}>📝 Sign Up</Link>
+            </>
           }
         </div>
       )}
@@ -188,11 +212,18 @@ const styles = {
     borderRadius: '999px', textTransform: 'uppercase',
     letterSpacing: '0.04em',
   },
-  adminBtn: {
+  loginBtn: {
     display: 'inline-flex', alignItems: 'center', gap: '6px',
-    padding: '6px 12px', borderRadius: '7px',
-    textDecoration: 'none', fontSize: '12px', fontWeight: 500,
-    color: '#475569', border: '1px solid rgba(99,102,241,0.1)',
+    padding: '6px 14px', borderRadius: '7px',
+    textDecoration: 'none', fontSize: '13px', fontWeight: 500,
+    color: '#94a3b8',
+    transition: 'all 0.2s ease',
+  },
+  signupBtn: {
+    display: 'inline-flex', alignItems: 'center', gap: '6px',
+    padding: '6px 14px', borderRadius: '7px',
+    textDecoration: 'none', fontSize: '13px', fontWeight: 600,
+    color: '#fff', background: 'linear-gradient(135deg,#10b981,#059669)',
     transition: 'all 0.2s ease',
   },
   hamburger: {
@@ -217,3 +248,4 @@ const styles = {
     borderBottom: '1px solid rgba(99,102,241,0.06)',
   },
 };
+

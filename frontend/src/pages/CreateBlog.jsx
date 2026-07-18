@@ -9,6 +9,7 @@ const CATEGORIES = ['Technology','Design','Science','Culture','Business','Lifest
 export default function CreateBlog() {
   const { user }    = useAuth();
   const navigate    = useNavigate();
+  const isAdmin = user?.role === 'admin';
   const [form, setForm] = useState({ title:'', subTitle:'', description:'', category:'Technology', isPublished: false });
   const [image,    setImage]   = useState(null);
   const [preview,  setPreview] = useState(null);
@@ -61,7 +62,8 @@ export default function CreateBlog() {
     if (ok) {
       setSuccess(true);
       anime({ targets: '#success-banner', scale:[0.9,1], opacity:[0,1], duration:500, easing:'easeOutBack' });
-      setTimeout(() => navigate('/admin/dashboard'), 2000);
+      const redirectPath = isAdmin ? '/admin/dashboard' : '/my-posts';
+      setTimeout(() => navigate(redirectPath), 2000);
     } else {
       setError(data.message || 'Failed to create blog. Try again.');
     }
@@ -79,7 +81,9 @@ export default function CreateBlog() {
 
           {success && (
             <div id="success-banner" className="alert alert-success" style={{opacity:0,marginBottom:'20px',fontSize:'15px'}}>
-              ✅ Blog created successfully! Redirecting to dashboard…
+              {isAdmin
+                ? '✅ Blog created successfully! Redirecting to dashboard…'
+                : '✅ Blog submitted for review! An admin will publish it soon. Redirecting…'}
             </div>
           )}
           {error && <div className="alert alert-error" style={{marginBottom:'20px'}}>{error}</div>}
@@ -130,19 +134,25 @@ export default function CreateBlog() {
                 </select>
               </div>
 
-              <div style={styles.publishToggle}>
-                <label className="form-label">Publish Now?</label>
-                <label style={styles.toggle}>
-                  <input type="checkbox" name="isPublished"
-                    checked={form.isPublished} onChange={handleChange} style={{display:'none'}} />
-                  <div style={{ ...styles.toggleTrack, ...(form.isPublished ? styles.toggleActive : {}) }}>
-                    <div style={{ ...styles.toggleThumb, ...(form.isPublished ? styles.thumbActive : {}) }} />
-                  </div>
-                  <span style={{fontSize:'13px',color: form.isPublished ? '#6ee7b7' : '#475569'}}>
-                    {form.isPublished ? 'Published' : 'Draft'}
-                  </span>
-                </label>
-              </div>
+              {isAdmin ? (
+                <div style={styles.publishToggle}>
+                  <label className="form-label">Publish Now?</label>
+                  <label style={styles.toggle}>
+                    <input type="checkbox" name="isPublished"
+                      checked={form.isPublished} onChange={handleChange} style={{display:'none'}} />
+                    <div style={{ ...styles.toggleTrack, ...(form.isPublished ? styles.toggleActive : {}) }}>
+                      <div style={{ ...styles.toggleThumb, ...(form.isPublished ? styles.thumbActive : {}) }} />
+                    </div>
+                    <span style={{fontSize:'13px',color: form.isPublished ? '#6ee7b7' : '#475569'}}>
+                      {form.isPublished ? 'Published' : 'Draft'}
+                    </span>
+                  </label>
+                </div>
+              ) : (
+                <div style={styles.publishToggle}>
+                  <label className="form-label" style={{color:'#fbbf24', fontSize:'12px'}}>📋 Your post will be reviewed by an admin before publishing</label>
+                </div>
+              )}
             </div>
 
             <div style={styles.actions}>

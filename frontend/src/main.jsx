@@ -8,7 +8,6 @@ function Root() {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    // Show loading screen for a minimum of 1.8s for the pencil animation to shine
     const timer = setTimeout(() => setReady(true), 1800);
     return () => clearTimeout(timer);
   }, []);

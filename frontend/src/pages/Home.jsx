@@ -6,11 +6,11 @@ import anime from 'animejs';
 const CATEGORIES = ['All', 'Technology', 'Design', 'Science', 'Culture', 'Business', 'Lifestyle'];
 
 export default function Home() {
-  const [blogs, setBlogs]       = useState([]);
+  const [blogs, setBlogs] = useState([]);
   const [filtered, setFiltered] = useState([]);
-  const [loading, setLoading]   = useState(true);
+  const [loading, setLoading] = useState(true);
   const [category, setCategory] = useState('All');
-  const [search, setSearch]     = useState('');
+  const [search, setSearch] = useState('');
   const heroRef  = useRef(null);
   const titleRef = useRef(null);
 
@@ -131,21 +131,21 @@ const styles = {
   heroInner: { position:'relative', zIndex:1, display:'flex', flexDirection:'column', alignItems:'center', textAlign:'center', gap:'20px' },
   heroBadge: { marginBottom:'8px' },
   heroTitle: { fontFamily:"'Playfair Display',serif", fontSize:'clamp(42px,7vw,76px)', fontWeight:700, lineHeight:1.1, color:'#f1f5f9', display:'flex', flexWrap:'wrap', justifyContent:'center', gap:'0 12px' },
-  heroWord:  { display:'inline-block' },
-  heroSub:   { fontSize:'clamp(15px,2vw,18px)', color:'#64748b', maxWidth:'500px', lineHeight:1.7 },
-  heroBg:    { position:'absolute', inset:0, background:'radial-gradient(ellipse 80% 60% at 50% -10%, rgba(99,102,241,0.18) 0%, transparent 70%)', pointerEvents:'none' },
-  controls:  { padding:'0 0 36px', borderBottom:'1px solid rgba(99,102,241,0.08)' },
+  heroWord: { display:'inline-block' },
+  heroSub: { fontSize:'clamp(15px,2vw,18px)', color:'#64748b', maxWidth:'500px', lineHeight:1.7 },
+  heroBg: { position:'absolute', inset:0, background:'radial-gradient(ellipse 80% 60% at 50% -10%, rgba(99,102,241,0.18) 0%, transparent 70%)', pointerEvents:'none' },
+  controls: { padding:'0 0 36px', borderBottom:'1px solid rgba(99,102,241,0.08)' },
   controlsInner: { display:'flex', flexDirection:'column', gap:'16px' },
   searchInput: { maxWidth:'460px' },
   categoryRow: { display:'flex', flexWrap:'wrap', gap:'8px' },
   catBtn: { padding:'6px 16px', borderRadius:'999px', border:'1px solid rgba(99,102,241,0.15)', background:'transparent', color:'#64748b', fontSize:'13px', fontWeight:500, cursor:'pointer', transition:'all 0.2s' },
   catBtnActive: { background:'rgba(99,102,241,0.15)', color:'#818cf8', borderColor:'rgba(99,102,241,0.4)' },
-  grid:   { padding:'48px 0 80px' },
+  grid: { padding:'48px 0 80px' },
   blogGrid: { display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(320px,1fr))', gap:'28px' },
   loadingState: { display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(320px,1fr))', gap:'28px' },
   emptyState: { textAlign:'center', padding:'80px 0', color:'#475569', display:'flex', flexDirection:'column', alignItems:'center', gap:'16px' },
   emptyIcon: { fontSize:'48px' },
   skeleton: { background:'#10101e', border:'1px solid rgba(99,102,241,0.08)', borderRadius:'16px', overflow:'hidden' },
-  skelImg:  { background:'linear-gradient(90deg,#10101e 25%,#1a1a2e 50%,#10101e 75%)', backgroundSize:'200% 100%', animation:'shimmer 1.5s infinite', height:'180px' },
+  skelImg: { background:'linear-gradient(90deg,#10101e 25%,#1a1a2e 50%,#10101e 75%)', backgroundSize:'200% 100%', animation:'shimmer 1.5s infinite', height:'180px' },
   skelLine: { background:'#1a1a2e', borderRadius:'4px' },
 };
